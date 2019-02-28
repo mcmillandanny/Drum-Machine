@@ -2,68 +2,83 @@
 
 console.log("Drum Machine");
 
-// var snare = new AudioContext(),
-// snareAudioSource = snare.createMediaElementSource(document.querySelector(".snareAudio")),
-// filter = snare.createBiquadFilter();
-// snareAudioSource.connect(filter);
-// filter.connect(snare.destination);
-// filter.type = "lowshelf";
-// filter.frequency.value = 4000;
-// filter.gain.value = 40;
-
-
-console.clear();
-
-// instigate our audio context
-
 // for cross browser
+
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
+var analyser = audioCtx.createAnalyser();
 
 // load some sound
-//KICK
 var kickAudio = document.querySelector('audio.kickAudio');
+var snareAudio = document.querySelector('audio.snareAudio');
+var clapAudio = document.querySelector('audio.clapAudio');
+var hihatAudio = document.querySelector('audio.hihatAudio');
+
 var kickTrack = audioCtx.createMediaElementSource(kickAudio);
-var kickPLayBtn = document.querySelector('.kickPlayButton');
+var snareTrack = audioCtx.createMediaElementSource(snareAudio);
+var clapTrack = audioCtx.createMediaElementSource(clapAudio);
+var hihatTrack = audioCtx.createMediaElementSource(hihatAudio);
+
+var kickPlayBtn = document.querySelector('.kickPlayButton');
+var snarePlayBtn = document.querySelector('.snarePlayButton');
+var clapPlayBtn = document.querySelector('.clapPlayButton');
+var hihatPlayBtn = document.querySelector('.hihatPlayButton');
+
+var lowShelfFilter = audioCtx.createBiquadFilter();
+lowShelfFilter.type = "lowshelf";
+lowShelfFilter.gain.value = 0;
+lowShelfFilter.frequency.value = 4000;
+
+// make range slider control lowShelfFilter.frequency.value
+document.querySelector('.lowShelfSlider').addEventListener('change', function () {
+    lowShelfFilter.gain.value = this.value;
+});
+
+kickTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
+snareTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
+clapTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
+hihatTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
 
 // play pause audio
 
-kickPLayBtn.addEventListener("click", function () {
+kickPlayBtn.addEventListener("click", function () {
 
-  if (audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
-
-  kickAudio.play();
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    // audioCtx.play();
+    kickAudio.play();
 });
 
-// kickPLayBtn.addEventListener('click', function() {
+snarePlayBtn.addEventListener("click", function () {
 
-// 	// check if context is in suspended state (autoplay policy)
-// 	if (audioCtx.state === 'suspended') {
-// 		audioCtx.resume();
-// 	}
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    // audioCtx.play();
+    snareAudio.play();
+});
 
-// 	if (this.dataset.playing === 'false') {
-// 		kickAudio.play();
-// 		this.dataset.playing = 'true';
-// 	// if kickTrack is playing pause it
-// 	} else if (this.dataset.playing === 'true') {
-// 		kickAudio.pause();
-// 		this.dataset.playing = 'false';
-// 	}
+clapPlayBtn.addEventListener("click", function () {
 
-// 	let state = this.getAttribute('aria-checked') === "true" ? true : false;
-// 	this.setAttribute( 'aria-checked', state ? "false" : "true" );
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    // audioCtx.play();
+    clapAudio.play();
+});
 
-// }, false);
+hihatPlayBtn.addEventListener("click", function () {
 
-
-// if kickTrack ends
-// kickAudio.addEventListener('ended', () => {
-// 	kickPLayBtn.dataset.playing = 'false';
-// 	kickPLayBtn.setAttribute( "aria-checked", "false" );
-// }, false);
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    // audioCtx.play();
+    hihatAudio.play();
+});
 
 // volume
 // const gainNode = audioCtx.createGain();
@@ -76,17 +91,72 @@ kickPLayBtn.addEventListener("click", function () {
 // panning
 var pannerOptions = { pan: 0 };
 var panner = new StereoPannerNode(audioCtx, pannerOptions);
-
 var panSlider = document.querySelector('[data-action="panner"]');
 
 panSlider.addEventListener('input', function () {
-  panner.pan.value = panSlider.value;
-  // console.log(panner);
-  // console.log( panSlider.value )
+    panner.pan.value = panSlider.value;
 });
 
-// const pannerControl = document.querySelector('[data-action="panner"]');
-// pannerControl.addEventListener('input', function() {
-// panner.pan.value = -1; //this.value;	
-// }, false);
+// canvas visualizer experiment 
+
+var WIDTH = 500;
+var HEIGHT = 500;
+
+analyser.fftSize = 2048;
+var bufferLength = analyser.frequencyBinCount;
+var dataArray = new Uint8Array(bufferLength);
+
+analyser.getByteTimeDomainData(dataArray);
+
+var canvasCtx = document.querySelector('#visualizer-canvas').getContext('2d');
+canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+
+function draw() {
+    // console.log("draw function!")
+    analyser.getByteTimeDomainData(dataArray);
+    canvasCtx.fillStyle = 'rgb(100, 100, 100)';
+    canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
+    canvasCtx.lineWidth = 2;
+    canvasCtx.strokeStyle = 'rgb(20, 20, 20)';
+    canvasCtx.beginPath();
+    var sliceWidth = WIDTH * 1.0 / bufferLength;
+    var x = 0;
+
+    for (var i = 0; i < bufferLength; i++) {
+
+        var v = dataArray[i] / 128.0;
+        var y = v * HEIGHT / 2;
+
+        if (i === 0) {
+            canvasCtx.moveTo(x, y);
+        } else {
+            canvasCtx.lineTo(x, y);
+        }
+
+        x += sliceWidth;
+    }
+
+    for (var i = 0; i < bufferLength; i++) {
+
+        var v = dataArray[i] / 128.0;
+        var y = v * HEIGHT / 2;
+
+        if (i === 0) {
+            canvasCtx.moveTo(x, y);
+        } else {
+            canvasCtx.lineTo(x, y);
+        }
+
+        x += sliceWidth;
+    }
+
+    canvasCtx.lineTo(canvasCtx.width, canvasCtx.height / 2);
+    canvasCtx.stroke();
+
+    requestAnimationFrame(draw);
+};
+
+draw();
+
+// console.log(bufferLength)
 //# sourceMappingURL=main.js.map

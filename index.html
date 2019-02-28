@@ -13,18 +13,27 @@
 	<body>
 		
 		<div class="content">
+			<canvas id="visualizer-canvas"></canvas>
 			<audio class="kickAudio audio" src="dist/sounds/kick.wav"></audio>
 			<audio class="snareAudio audio" src="dist/sounds/snare.wav"></audio>
 			<audio class="hihatAudio audio" src="dist/sounds/hihat.wav"></audio>
 			<audio class="clapAudio audio" src="dist/sounds/clap.wav"></audio>
+			<div class="sliders">
+				<label>Low Shelf
+					<input class="lowShelfSlider" min="-50" max="50" step="1" value="0" type="range">
+				</label>
 				<label>Pan
 					<input class="panSlider" min="-1" max="1" step="0.01" value="0" data-action="panner" type="range">
 				</label>
-				<label>Volume
-					<input class="volumeSlider" min="-1" max="1" step="0.01" value="0" data-action="volume" type="range">
+				<br><label>Volume
+					<input class="volumeSlider" min="0" max="1" step="0.01" value="0" data-action="volume" type="range">
 				</label>
+			</div>
+			
 				<button class="kickPlayButton">Kick</button>
-				<button class="snareButton">Snare</button>
+				<button class="hihatPlayButton">HiHat</button>
+				<button class="clapPlayButton">Clap</button>
+				<button class="snarePlayButton">Snare</button>
 		</div>
 
 		<script src="dist/js/main.js"></script>

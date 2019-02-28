@@ -32,23 +32,13 @@ body {
 
 /* 2. Content ================================= */
 
+#visualizer-canvas {
+	width: 100%;
+}
+
 .content {
 	position: relative;
 	font-family: sans-serif;
-	width: 90%;
-	max-width: 500px;
-	margin: 140px auto;
-	padding: 30px 20px 30px 30px;
-	
-	div {
-		text-align: center;
-		padding: 20px;
-		width: 80px;
-		height: 80px;
-		background: red;
-		margin: 10px;
-	}
-
 	figcaption {
 		font-size: 40px;
 		
