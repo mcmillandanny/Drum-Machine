@@ -34,11 +34,12 @@ body {
 
 #visualizer-canvas {
 	width: 100%;
+	position: absolute;
+	z-index: -1;
 }
 
 .content {
 	position: relative;
-	font-family: sans-serif;
 	figcaption {
 		font-size: 40px;
 		

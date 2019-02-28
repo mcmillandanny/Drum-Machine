@@ -29,6 +29,16 @@ lowShelfFilter.type = "lowshelf";
 lowShelfFilter.gain.value = 0;
 lowShelfFilter.frequency.value = 4000;
 
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
 // make range slider control lowShelfFilter.frequency.value
 document.querySelector('.lowShelfSlider').addEventListener('change', function () {
     lowShelfFilter.gain.value = this.value;
@@ -117,7 +127,7 @@ function draw() {
     canvasCtx.fillStyle = 'rgb(100, 100, 100)';
     canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
     canvasCtx.lineWidth = 2;
-    canvasCtx.strokeStyle = 'rgb(20, 20, 20)';
+    canvasCtx.strokeStyle = getRandomColor();
     canvasCtx.beginPath();
     var sliceWidth = WIDTH * 1.0 / bufferLength;
     var x = 0;

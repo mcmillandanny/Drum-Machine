@@ -79,11 +79,12 @@ body {
 /* 2. Content ================================= */
 #visualizer-canvas {
 	width: 100%;
+	position: absolute;
+	z-index: -1;
 }
 
 .content {
 	position: relative;
-	font-family: sans-serif;
 }
 
 .content figcaption {
