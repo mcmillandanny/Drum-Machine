@@ -13,16 +13,19 @@ var kickAudio = document.querySelector('audio.kickAudio');
 var snareAudio = document.querySelector('audio.snareAudio');
 var clapAudio = document.querySelector('audio.clapAudio');
 var hihatAudio = document.querySelector('audio.hihatAudio');
+var boomAudio = document.querySelector('audio.boomAudio');
 
 var kickTrack = audioCtx.createMediaElementSource(kickAudio);
 var snareTrack = audioCtx.createMediaElementSource(snareAudio);
 var clapTrack = audioCtx.createMediaElementSource(clapAudio);
 var hihatTrack = audioCtx.createMediaElementSource(hihatAudio);
+var boomTrack = audioCtx.createMediaElementSource(boomAudio);
 
 var kickPlayBtn = document.querySelector('.kickPlayButton');
 var snarePlayBtn = document.querySelector('.snarePlayButton');
 var clapPlayBtn = document.querySelector('.clapPlayButton');
 var hihatPlayBtn = document.querySelector('.hihatPlayButton');
+var boomPlayBtn = document.querySelector('.boomPlayButton');
 
 var lowShelfFilter = audioCtx.createBiquadFilter();
 lowShelfFilter.type = "lowshelf";
@@ -51,6 +54,8 @@ snareTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destinatio
 clapTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
 
 hihatTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
+boomTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
 
 // play pause audio
 
@@ -88,6 +93,15 @@ hihatPlayBtn.addEventListener("click", function () {
     }
     // audioCtx.play();
     hihatAudio.play();
+});
+
+boomPlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    // audioCtx.play();
+    boomAudio.play();
 });
 
 // volume
@@ -167,6 +181,32 @@ function draw() {
 };
 
 draw();
+
+var recorder, gumStream;
+var recordButton = document.getElementById("recordButton");
+recordButton.addEventListener("click", toggleRecording);
+
+function toggleRecording() {
+    if (recorder && recorder.state == "recording") {
+        recorder.stop();
+        gumStream.getAudioTracks()[0].stop();
+    } else {
+        navigator.mediaDevices.getUserMedia({
+            audio: true
+        }).then(function (stream) {
+            gumStream = stream;
+            recorder = new MediaRecorder(stream);
+            recorder.ondataavailable = function (e) {
+                var url = URL.createObjectURL(e.data);
+                var preview = document.createElement('audio');
+                preview.controls = true;
+                preview.src = url;
+                document.body.appendChild(preview);
+            };
+            recorder.start();
+        });
+    }
+}
 
 // console.log(bufferLength)
 //# sourceMappingURL=main.js.map

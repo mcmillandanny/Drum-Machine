@@ -15,6 +15,7 @@ const kickAudio = document.querySelector('audio.kickAudio');
 const snareAudio = document.querySelector('audio.snareAudio');
 const clapAudio = document.querySelector('audio.clapAudio');
 const hihatAudio = document.querySelector('audio.hihatAudio');
+const boomAudio = document.querySelector('audio.boomAudio');
 
 
 
@@ -22,12 +23,14 @@ const kickTrack = audioCtx.createMediaElementSource(kickAudio);
 const snareTrack = audioCtx.createMediaElementSource(snareAudio);
 const clapTrack = audioCtx.createMediaElementSource(clapAudio);
 const hihatTrack = audioCtx.createMediaElementSource(hihatAudio);
+const boomTrack = audioCtx.createMediaElementSource(boomAudio);
 
 
 const kickPlayBtn = document.querySelector('.kickPlayButton');
 const snarePlayBtn = document.querySelector('.snarePlayButton');
 const clapPlayBtn = document.querySelector('.clapPlayButton');
 const hihatPlayBtn = document.querySelector('.hihatPlayButton');
+const boomPlayBtn = document.querySelector('.boomPlayButton');
 
 
 
@@ -74,6 +77,11 @@ clapTrack
     
 
 hihatTrack
+    .connect(analyser)    
+    .connect(lowShelfFilter)
+    .connect(audioCtx.destination)
+
+boomTrack
     .connect(analyser)    
     .connect(lowShelfFilter)
     .connect(audioCtx.destination)
@@ -124,6 +132,16 @@ hihatPlayBtn.addEventListener("click", function () {
 
 })
 
+boomPlayBtn.addEventListener("click", function() {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    // audioCtx.play();
+    boomAudio.play();
+
+})
+
 
 // volume
     // const gainNode = audioCtx.createGain();
@@ -142,14 +160,7 @@ let panSlider = document.querySelector('[data-action="panner"]');
 panSlider.addEventListener('input', function() {
     panner.pan.value = panSlider.value; 
 
-
 })
-
-
-
-
-
-
 
 
 
@@ -218,6 +229,32 @@ function draw() {
 };
 
 draw()
+
+var recorder, gumStream;
+var recordButton = document.getElementById("recordButton");
+recordButton.addEventListener("click", toggleRecording);
+
+function toggleRecording() {
+    if (recorder && recorder.state == "recording") {
+        recorder.stop();
+        gumStream.getAudioTracks()[0].stop();
+    } else {
+        navigator.mediaDevices.getUserMedia({
+            audio: true
+        }).then(function(stream) {
+            gumStream = stream;
+            recorder = new MediaRecorder(stream);
+            recorder.ondataavailable = function(e) {
+                var url = URL.createObjectURL(e.data);
+                var preview = document.createElement('audio');
+                preview.controls = true;
+                preview.src = url;
+                document.body.appendChild(preview);
+            };
+            recorder.start();
+        });
+    }
+}
 
 // console.log(bufferLength)
 

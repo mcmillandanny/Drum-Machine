@@ -79,16 +79,64 @@ body {
 /* 2. Content ================================= */
 #visualizer-canvas {
 	width: 100%;
-	position: absolute;
 	z-index: -1;
-}
-
-.content {
-	position: relative;
 }
 
 .content figcaption {
 	font-size: 40px;
+}
+
+.content .sliders {
+	display: flex;
+	justify-content: baseline;
+	flex-direction: column;
+}
+
+.content .drum-buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	margin-left: auto;
+}
+
+.content .drum-buttons .kickPlayButton {
+	width: 50px;
+	height: 50px;
+	background: red;
+	text-align: center;
+	margin: 20px;
+}
+
+.content .drum-buttons .hihatPlayButton {
+	width: 50px;
+	height: 50px;
+	background: red;
+	text-align: center;
+	margin: 20px;
+}
+
+.content .drum-buttons .clapPlayButton {
+	width: 50px;
+	height: 50px;
+	background: red;
+	text-align: center;
+	margin: 20px;
+}
+
+.content .drum-buttons .snarePlayButton {
+	width: 50px;
+	height: 50px;
+	background: red;
+	text-align: center;
+	margin: 20px;
+}
+
+.content .drum-buttons .boomPlayButton {
+	width: 50px;
+	height: 50px;
+	background: red;
+	text-align: center;
+	margin: 20px;
 }
 
 /*# sourceMappingURL=main.css.map */

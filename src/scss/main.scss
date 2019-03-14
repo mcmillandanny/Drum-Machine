@@ -34,14 +34,69 @@ body {
 
 #visualizer-canvas {
 	width: 100%;
-	position: absolute;
 	z-index: -1;
 }
 
 .content {
-	position: relative;
+
 	figcaption {
 		font-size: 40px;
-		
+	}
+
+
+	.sliders {
+		display: flex;
+		justify-content: baseline;
+		flex-direction: column;	
+
+	}
+
+
+	.drum-buttons {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		margin-left: auto;
+
+		.kickPlayButton {
+			width: 50px;
+			height: 50px;
+			background: red;
+			text-align: center;
+			margin: 20px;
+		}
+
+		.hihatPlayButton {
+			width: 50px;
+			height: 50px;
+			background: red;
+			text-align: center;
+			margin: 20px;
+		}
+
+		.clapPlayButton {
+			width: 50px;
+			height: 50px;
+			background: red;
+			text-align: center;
+			margin: 20px;
+		}
+
+		.snarePlayButton {
+			width: 50px;
+			height: 50px;
+			background: red;
+			text-align: center;
+			margin: 20px;
+		}
+
+		.boomPlayButton {
+			width: 50px;
+			height: 50px;
+			background: red;
+			text-align: center;
+			margin: 20px;
+		}
 	}
 }
+

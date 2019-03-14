@@ -18,6 +18,12 @@
 			<audio class="snareAudio audio" src="dist/sounds/snare.wav"></audio>
 			<audio class="hihatAudio audio" src="dist/sounds/hihat.wav"></audio>
 			<audio class="clapAudio audio" src="dist/sounds/clap.wav"></audio>
+			<audio class="boomAudio audio" src="dist/sounds/boom.wav"></audio>
+			<audio class="openhatAudio audio" src="dist/sounds/openhat.wav"></audio>
+			<audio class="rideAudio audio" src="dist/sounds/ride.wav"></audio>
+			<audio class="tinkAudio audio" src="dist/sounds/tink.wav"></audio>
+			<audio class="tomAudio audio" src="dist/sounds/tom.wav"></audio>
+
 			<div class="sliders">
 				<label>Low Shelf
 					<input class="lowShelfSlider" min="-50" max="50" step="1" value="0" type="range">
@@ -29,11 +35,13 @@
 					<input class="volumeSlider" min="0" max="1" step="0.01" value="0" data-action="volume" type="range">
 				</label>
 			</div>
-			
-				<button class="kickPlayButton">Kick</button>
-				<button class="hihatPlayButton">HiHat</button>
-				<button class="clapPlayButton">Clap</button>
-				<button class="snarePlayButton">Snare</button>
+			<div class="drum-buttons">
+				<div class="kickPlayButton">Kick</div>
+				<div class="hihatPlayButton">HiHat</div>
+				<div class="clapPlayButton">Clap</div>
+				<div class="snarePlayButton">Snare</div>
+				<div class="boomPlayButton">Boom</div>
+			</div>
 		</div>
 
 		<script src="dist/js/main.js"></script>
