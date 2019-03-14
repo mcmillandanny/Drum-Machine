@@ -78,7 +78,6 @@ body {
 
 /* 2. Content ================================= */
 #visualizer-canvas {
-	width: 100%;
 	z-index: -1;
 }
 
