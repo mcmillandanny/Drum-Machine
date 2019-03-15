@@ -116,13 +116,16 @@ window.addEventListener("keydown", function (event) {
 // }, false);
 
 // panning
-var pannerOptions = { pan: 0 };
-var panner = new StereoPannerNode(audioCtx, pannerOptions);
-var panSlider = document.querySelector('[data-action="panner"]');
+// const pannerOptions = {pan: 0};
+// const panner = new StereoPannerNode(audioCtx, pannerOptions);
+// let panSlider = document.querySelector('[data-action="panner"]');
 
-panSlider.addEventListener('input', function () {
-    panner.pan.value = panSlider.value;
-});
+
+// panSlider.addEventListener('input', function() {
+//     panner.pan.value = panSlider.value; 
+
+// })
+
 
 // canvas visualizer experiment 
 
@@ -143,7 +146,7 @@ var canvasElement = document.querySelector('#visualizer-canvas');
 var canvasCtx = canvasElement.getContext('2d');
 var resizeCanvas = function resizeCanvas() {
     canvasElement.width = window.innerWidth;
-    canvasElement.height = window.innerWidth;
+    canvasElement.height = window.innerHeight;
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
 };
 window.addEventListener('load', resizeCanvas);

@@ -147,15 +147,15 @@ window.addEventListener("keydown", function(event) {
     // }, false);
 
 // panning
-const pannerOptions = {pan: 0};
-const panner = new StereoPannerNode(audioCtx, pannerOptions);
-let panSlider = document.querySelector('[data-action="panner"]');
+// const pannerOptions = {pan: 0};
+// const panner = new StereoPannerNode(audioCtx, pannerOptions);
+// let panSlider = document.querySelector('[data-action="panner"]');
 
 
-panSlider.addEventListener('input', function() {
-    panner.pan.value = panSlider.value; 
+// panSlider.addEventListener('input', function() {
+//     panner.pan.value = panSlider.value; 
 
-})
+// })
 
 
 
@@ -180,7 +180,7 @@ let canvasElement = document.querySelector('#visualizer-canvas');
 let canvasCtx = canvasElement.getContext('2d');
 let resizeCanvas = () => {
     canvasElement.width = window.innerWidth;
-    canvasElement.height = window.innerWidth;
+    canvasElement.height = window.innerHeight;
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
 }
 window.addEventListener('load', resizeCanvas)

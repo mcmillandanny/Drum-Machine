@@ -35,12 +35,21 @@ body {
 #visualizer-canvas {
 	// width: 100%;
 	z-index: -1;
+	position: absolute;
 }
 
 .content {
 
 	figcaption {
 		font-size: 40px;
+	}
+
+	p {
+		color: white;
+	}
+
+	label {
+		color: white;
 	}
 
 

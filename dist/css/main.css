@@ -79,10 +79,19 @@ body {
 /* 2. Content ================================= */
 #visualizer-canvas {
 	z-index: -1;
+	position: absolute;
 }
 
 .content figcaption {
 	font-size: 40px;
+}
+
+.content p {
+	color: white;
+}
+
+.content label {
+	color: white;
 }
 
 .content .sliders {
