@@ -14,18 +14,51 @@ var snareAudio = document.querySelector('audio.snareAudio');
 var clapAudio = document.querySelector('audio.clapAudio');
 var hihatAudio = document.querySelector('audio.hihatAudio');
 var boomAudio = document.querySelector('audio.boomAudio');
+var openHatAudio = document.querySelector('audio.openhatAudio');
+var rideAudio = document.querySelector('audio.rideAudio');
+var tinkAudio = document.querySelector('audio.tinkAudio');
+var tomAudio = document.querySelector('audio.tomAudio');
+var bigBandAudio = document.querySelector('audio.bigBandAudio');
+var marchAudio = document.querySelector('audio.marchAudio');
+var bassAudio = document.querySelector('audio.bassAudio');
+var ps1Audio = document.querySelector('audio.ps1Audio');
+var anotherAudio = document.querySelector('audio.anotherAudio');
+var beansAudio = document.querySelector('audio.beansAudio');
+var heyAudio = document.querySelector('audio.heyAudio');
 
 var kickTrack = audioCtx.createMediaElementSource(kickAudio);
 var snareTrack = audioCtx.createMediaElementSource(snareAudio);
 var clapTrack = audioCtx.createMediaElementSource(clapAudio);
 var hihatTrack = audioCtx.createMediaElementSource(hihatAudio);
 var boomTrack = audioCtx.createMediaElementSource(boomAudio);
+var openHatTrack = audioCtx.createMediaElementSource(openHatAudio);
+var rideTrack = audioCtx.createMediaElementSource(rideAudio);
+var tinkTrack = audioCtx.createMediaElementSource(tinkAudio);
+var tomTrack = audioCtx.createMediaElementSource(tomAudio);
+var bigBandTrack = audioCtx.createMediaElementSource(bigBandAudio);
+var marchTrack = audioCtx.createMediaElementSource(marchAudio);
+var bassTrack = audioCtx.createMediaElementSource(bassAudio);
+var ps1Track = audioCtx.createMediaElementSource(ps1Audio);
+var anotherTrack = audioCtx.createMediaElementSource(anotherAudio);
+var beansTrack = audioCtx.createMediaElementSource(beansAudio);
+var heyTrack = audioCtx.createMediaElementSource(heyAudio);
 
 var kickPlayBtn = document.querySelector('.kickPlayButton');
 var snarePlayBtn = document.querySelector('.snarePlayButton');
 var clapPlayBtn = document.querySelector('.clapPlayButton');
 var hihatPlayBtn = document.querySelector('.hihatPlayButton');
 var boomPlayBtn = document.querySelector('.boomPlayButton');
+var openHatPlayBtn = document.querySelector('.hithatPlayButton');
+var ridePlayBtn = document.querySelector('ridePlayButton');
+var tinkPlayBtn = document.querySelector('ridePlayButton');
+var tomPlayBtn = document.querySelector('ridePlayButton');
+var bigBandPlayBtn = document.querySelector('bigBandPlayButton');
+var marchPlayBtn = document.querySelector('marchPlayButton');
+var bassPlayBtn = document.querySelector('bassPlayButton');
+var ps1PlayBtn = document.querySelector('ps1PlayButton');
+var anotherPlayBtn = document.querySelector('anotherPlayButton');
+var heyPlayBtn = document.querySelector('heyPlayButton');
+var beansPlayBtn = document.querySelector('beansPlayButton');
 
 var lowShelfFilter = audioCtx.createBiquadFilter();
 lowShelfFilter.type = "lowshelf";
@@ -57,10 +90,47 @@ hihatTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destinatio
 
 boomTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
 
+openHatTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
+rideTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
+tinkTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
+tomTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
+bigBandTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
+marchTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
+bassTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
+ps1Track.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
+anotherTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
+heyTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
+beansTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+
 // play audio
 
+
+snarePlayBtn.addEventListener("mousedown", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    snareAudio.play();
+
+    TweenMax.fromTo(snarePlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+
 window.addEventListener("keydown", function (event) {
-    console.log(event);
+
     if (event.keyCode === 81) {
         // Q
 
@@ -68,6 +138,12 @@ window.addEventListener("keydown", function (event) {
             audioCtx.resume();
         }
         snareAudio.play();
+        snarePlayBtn.classList.toggle('clicked');
+        TweenMax.fromTo(snarePlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 
     if (event.keyCode === 87) {
@@ -104,6 +180,105 @@ window.addEventListener("keydown", function (event) {
             audioCtx.resume();
         }
         boomAudio.play();
+    }
+
+    if (event.keyCode === 65) {
+        // A
+
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        openHatAudio.play();
+    }
+
+    if (event.keyCode === 83) {
+        // S
+
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        rideAudio.play();
+    }
+
+    if (event.keyCode === 68) {
+        // D
+
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        tinkAudio.play();
+    }
+
+    if (event.keyCode === 70) {
+        // F
+
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        tomAudio.play();
+    }
+
+    if (event.keyCode === 90) {
+        // Z
+
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        bigBandAudio.play();
+    }
+
+    if (event.keyCode === 88) {
+        // X
+
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        marchAudio.play();
+    }
+
+    if (event.keyCode === 67) {
+        // C
+
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        bassAudio.play();
+    }
+
+    if (event.keyCode === 72) {
+        // H
+
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        ps1Audio.play();
+    }
+
+    if (event.keyCode === 74) {
+        // J
+
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        anotherAudio.play();
+    }
+
+    if (event.keyCode === 75) {
+        // K
+
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        heyAudio.play();
+    }
+
+    if (event.keyCode === 76) {
+        // K
+
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        beansAudio.play();
     }
 });
 
@@ -154,38 +329,22 @@ window.addEventListener('resize', resizeCanvas);
 
 function draw() {
 
-    // console.log("draw function!")
-    // analyser.getByteTimeDomainData(dataArray);
-    // canvasCtx.fillStyle = 'rgb(100, 100, 100)';
-    // canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
-    // canvasCtx.lineWidth = 2;
-    // canvasCtx.strokeStyle = getRandomColor();
-    // canvasCtx.beginPath();
-    // var sliceWidth = WIDTH * 1.0 / bufferLength;
-    // var x = 0;
-
-    // var drawVisual = requestAnimationFrame(draw);
-
-
     var barWidth = canvasElement.width / bufferLength; // * 2.5;
     var barHeight;
-    var x = 0;
+    var x = 1;
     analyser.getByteFrequencyData(dataArray);
 
-    canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+    canvasCtx.fillStyle = 'rgba(0,0,50)';
     canvasCtx.fillRect(0, 0, canvasElement.width, canvasElement.height);
 
     for (var i = 0; i < bufferLength; i++) {
         barHeight = dataArray[i] / 2;
         // console.log('barHeight', barHeight)
 
-        canvasCtx.fillStyle = 'rgb(' + barHeight * 2.5 + ',50,50)';
-        canvasCtx.fillRect(x, canvasElement.height - barHeight / 2, barWidth, barHeight); // 
-        // console.log(x,'  ' , HEIGHT-barHeight/2, '   ', barWidth, '   ', barHeight)
-        // canvasCtx.lineWidth = 2;
-        // canvasCtx.strokeStyle = getRandomColor();
-        // canvasCtx.beginPath();
-        x += barWidth + 1;
+        canvasCtx.fillStyle = getRandomColor();
+        canvasCtx.fillRect(x, canvasElement.height - barHeight / 1, barWidth, barHeight); // 
+
+        x += barWidth + 2;
     }
 
     requestAnimationFrame(draw);

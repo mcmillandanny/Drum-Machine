@@ -101,50 +101,58 @@ body {
 }
 
 .content .drum-buttons {
+	border: 1px solid red;
+}
+
+.content .drum-buttons .row-q-wrapper {
 	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	margin-left: auto;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
-.content .drum-buttons .kickPlayButton {
-	width: 50px;
-	height: 50px;
-	background: red;
-	text-align: center;
-	margin: 20px;
+.content .drum-buttons .row-q-wrapper .row-q {
+	background: #bdbffd;
+	opacity: .9;
 }
 
-.content .drum-buttons .hihatPlayButton {
-	width: 50px;
-	height: 50px;
-	background: red;
-	text-align: center;
-	margin: 20px;
+.content .drum-buttons .row-a-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
-.content .drum-buttons .clapPlayButton {
-	width: 50px;
-	height: 50px;
-	background: red;
-	text-align: center;
-	margin: 20px;
+.content .drum-buttons .row-a-wrapper .row-a {
+	background: #fda187;
+	opacity: .9;
 }
 
-.content .drum-buttons .snarePlayButton {
-	width: 50px;
-	height: 50px;
-	background: red;
-	text-align: center;
-	margin: 20px;
+.content .drum-buttons .row-z-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
-.content .drum-buttons .boomPlayButton {
+.content .drum-buttons .row-z-wrapper .row-z {
+	background: #86db53;
+	opacity: .9;
+}
+
+.content .drum-buttons .row-p-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.content .drum-buttons .row-p-wrapper .row-p {
+	background: #86db53;
+	opacity: .9;
+}
+
+.content .drum-buttons .div-button {
 	width: 50px;
 	height: 50px;
-	background: red;
 	text-align: center;
-	margin: 20px;
+	margin: 1px;
 }
 
 /*# sourceMappingURL=main.css.map */
