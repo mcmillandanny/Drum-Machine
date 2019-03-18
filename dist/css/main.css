@@ -165,4 +165,13 @@ body {
 	margin: 1px;
 }
 
+.content .sliders {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 20px;
+	margin: 20px;
+}
+
 /*# sourceMappingURL=main.css.map */
