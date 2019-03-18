@@ -23,7 +23,6 @@ var marchAudio = document.querySelector('audio.marchAudio');
 var bassAudio = document.querySelector('audio.bassAudio');
 var ps1Audio = document.querySelector('audio.ps1Audio');
 var anotherAudio = document.querySelector('audio.anotherAudio');
-var beansAudio = document.querySelector('audio.beansAudio');
 var heyAudio = document.querySelector('audio.heyAudio');
 
 var kickTrack = audioCtx.createMediaElementSource(kickAudio);
@@ -40,7 +39,6 @@ var marchTrack = audioCtx.createMediaElementSource(marchAudio);
 var bassTrack = audioCtx.createMediaElementSource(bassAudio);
 var ps1Track = audioCtx.createMediaElementSource(ps1Audio);
 var anotherTrack = audioCtx.createMediaElementSource(anotherAudio);
-var beansTrack = audioCtx.createMediaElementSource(beansAudio);
 var heyTrack = audioCtx.createMediaElementSource(heyAudio);
 
 var kickPlayBtn = document.querySelector('.kickPlayButton');
@@ -49,21 +47,20 @@ var clapPlayBtn = document.querySelector('.clapPlayButton');
 var hihatPlayBtn = document.querySelector('.hihatPlayButton');
 var boomPlayBtn = document.querySelector('.boomPlayButton');
 var openHatPlayBtn = document.querySelector('.hithatPlayButton');
-var ridePlayBtn = document.querySelector('ridePlayButton');
-var tinkPlayBtn = document.querySelector('ridePlayButton');
-var tomPlayBtn = document.querySelector('ridePlayButton');
-var bigBandPlayBtn = document.querySelector('bigBandPlayButton');
-var marchPlayBtn = document.querySelector('marchPlayButton');
-var bassPlayBtn = document.querySelector('bassPlayButton');
-var ps1PlayBtn = document.querySelector('ps1PlayButton');
-var anotherPlayBtn = document.querySelector('anotherPlayButton');
-var heyPlayBtn = document.querySelector('heyPlayButton');
-var beansPlayBtn = document.querySelector('beansPlayButton');
+var ridePlayBtn = document.querySelector('.ridePlayButton');
+var tinkPlayBtn = document.querySelector('.tinkPlayButton');
+var tomPlayBtn = document.querySelector('.tomPlayButton');
+var bigBandPlayBtn = document.querySelector('.bigBandPlayButton');
+var marchPlayBtn = document.querySelector('.marchPlayButton');
+var bassPlayBtn = document.querySelector('.bassPlayButton');
+var ps1PlayBtn = document.querySelector('.ps1PlayButton');
+var anotherPlayBtn = document.querySelector('.anotherPlayButton');
+var heyPlayBtn = document.querySelector('.heyPlayButton');
 
 var lowShelfFilter = audioCtx.createBiquadFilter();
 lowShelfFilter.type = "lowshelf";
 lowShelfFilter.gain.value = 0;
-lowShelfFilter.frequency.value = 4000;
+lowShelfFilter.frequency.value = 2000;
 
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
@@ -80,42 +77,57 @@ document.querySelector('.lowShelfSlider').addEventListener('change', function ()
     lowShelfFilter.gain.value = this.value;
 });
 
-kickTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+// volume
+var gainNode = audioCtx.createGain();
+var volumeControl = document.querySelector('[data-action="volume"]');
 
-snareTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+volumeControl.addEventListener('input', function () {
+    gainNode.gain.value = this.value;
+}, false);
 
-clapTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+// panning
+var pannerOptions = { pan: 0 };
+var panner = new StereoPannerNode(audioCtx, pannerOptions);
 
-hihatTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+var panSlider = document.querySelector('[data-action="panner"]');
 
-boomTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+panSlider.addEventListener('input', function () {
+    panner.pan.value = panSlider.value;
+}, false);
 
-openHatTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+kickTrack.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
 
-rideTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+snareTrack.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
 
-tinkTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+clapTrack.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
 
-tomTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+hihatTrack.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
 
-bigBandTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+boomTrack.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
 
-marchTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+openHatTrack.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
 
-bassTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+rideTrack.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
 
-ps1Track.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+tinkTrack.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
 
-anotherTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+tomTrack.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
 
-heyTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+bigBandTrack.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
 
-beansTrack.connect(analyser).connect(lowShelfFilter).connect(audioCtx.destination);
+marchTrack.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
+
+bassTrack.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
+
+ps1Track.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
+
+anotherTrack.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
+
+heyTrack.connect(analyser).connect(lowShelfFilter).connect(panner).connect(gainNode).connect(audioCtx.destination);
 
 // play audio
 
-
-snarePlayBtn.addEventListener("mousedown", function () {
+snarePlayBtn.addEventListener("click", function () {
 
     if (audioCtx.state === 'suspended') {
         audioCtx.resume();
@@ -123,6 +135,199 @@ snarePlayBtn.addEventListener("mousedown", function () {
     snareAudio.play();
 
     TweenMax.fromTo(snarePlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+
+kickPlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    kickAudio.play();
+
+    TweenMax.fromTo(kickPlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+
+hihatPlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    kickAudio.play();
+    TweenMax.fromTo(hihatPlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+
+boomPlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    kickAudio.play();
+    TweenMax.fromTo(boomPlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+clapPlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    clapAudio.play();
+
+    TweenMax.fromTo(clapPlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+
+openHatPlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    openHatAudio.play();
+
+    TweenMax.fromTo(openHatPlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+
+ridePlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    rideAudio.play();
+
+    TweenMax.fromTo(ridePlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+
+tinkPlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    tinkAudio.play();
+
+    TweenMax.fromTo(tinkPlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+
+tomPlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    tomAudio.play();
+
+    TweenMax.fromTo(tomPlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+
+bigBandPlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    bigBandAudio.play();
+
+    TweenMax.fromTo(bigBandPlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+
+marchPlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    marchAudio.play();
+
+    TweenMax.fromTo(marchPlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+
+bassPlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    bassAudio.play();
+
+    TweenMax.fromTo(bassPlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+
+ps1PlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    ps1Audio.play();
+
+    TweenMax.fromTo(ps1PlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+
+anotherPlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    anotherAudio.play();
+
+    TweenMax.fromTo(anotherPlayBtn, .3, {
+        scale: .5
+    }, {
+        scale: 1
+    });
+});
+
+heyPlayBtn.addEventListener("click", function () {
+
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    heyAudio.play();
+
+    TweenMax.fromTo(heyPlayBtn, .3, {
         scale: .5
     }, {
         scale: 1
@@ -137,9 +342,8 @@ window.addEventListener("keydown", function (event) {
         if (audioCtx.state === 'suspended') {
             audioCtx.resume();
         }
-        snareAudio.play();
-        snarePlayBtn.classList.toggle('clicked');
-        TweenMax.fromTo(snarePlayBtn, .3, {
+        kickAudio.play();
+        TweenMax.fromTo(kickPlayBtn, .3, {
             scale: .5
         }, {
             scale: 1
@@ -152,7 +356,12 @@ window.addEventListener("keydown", function (event) {
         if (audioCtx.state === 'suspended') {
             audioCtx.resume();
         }
-        kickAudio.play();
+        hihatAudio.play();
+        TweenMax.fromTo(hihatPlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 
     if (event.keyCode === 69) {
@@ -162,6 +371,11 @@ window.addEventListener("keydown", function (event) {
             audioCtx.resume();
         }
         clapAudio.play();
+        TweenMax.fromTo(clapPlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 
     if (event.keyCode === 82) {
@@ -170,7 +384,12 @@ window.addEventListener("keydown", function (event) {
         if (audioCtx.state === 'suspended') {
             audioCtx.resume();
         }
-        hihatAudio.play();
+        snareAudio.play();
+        TweenMax.fromTo(snarePlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 
     if (event.keyCode === 84) {
@@ -180,6 +399,11 @@ window.addEventListener("keydown", function (event) {
             audioCtx.resume();
         }
         boomAudio.play();
+        TweenMax.fromTo(boomPlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 
     if (event.keyCode === 65) {
@@ -189,6 +413,11 @@ window.addEventListener("keydown", function (event) {
             audioCtx.resume();
         }
         openHatAudio.play();
+        TweenMax.fromTo(openHatPlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 
     if (event.keyCode === 83) {
@@ -198,6 +427,11 @@ window.addEventListener("keydown", function (event) {
             audioCtx.resume();
         }
         rideAudio.play();
+        TweenMax.fromTo(ridePlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 
     if (event.keyCode === 68) {
@@ -207,6 +441,11 @@ window.addEventListener("keydown", function (event) {
             audioCtx.resume();
         }
         tinkAudio.play();
+        TweenMax.fromTo(tinkPlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 
     if (event.keyCode === 70) {
@@ -216,6 +455,11 @@ window.addEventListener("keydown", function (event) {
             audioCtx.resume();
         }
         tomAudio.play();
+        TweenMax.fromTo(tomPlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 
     if (event.keyCode === 90) {
@@ -225,6 +469,11 @@ window.addEventListener("keydown", function (event) {
             audioCtx.resume();
         }
         bigBandAudio.play();
+        TweenMax.fromTo(bigBandPlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 
     if (event.keyCode === 88) {
@@ -234,6 +483,11 @@ window.addEventListener("keydown", function (event) {
             audioCtx.resume();
         }
         marchAudio.play();
+        TweenMax.fromTo(marchPlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 
     if (event.keyCode === 67) {
@@ -243,6 +497,11 @@ window.addEventListener("keydown", function (event) {
             audioCtx.resume();
         }
         bassAudio.play();
+        TweenMax.fromTo(bassPlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 
     if (event.keyCode === 72) {
@@ -252,6 +511,11 @@ window.addEventListener("keydown", function (event) {
             audioCtx.resume();
         }
         ps1Audio.play();
+        TweenMax.fromTo(ps1PlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 
     if (event.keyCode === 74) {
@@ -261,6 +525,11 @@ window.addEventListener("keydown", function (event) {
             audioCtx.resume();
         }
         anotherAudio.play();
+        TweenMax.fromTo(anotherPlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 
     if (event.keyCode === 75) {
@@ -270,44 +539,15 @@ window.addEventListener("keydown", function (event) {
             audioCtx.resume();
         }
         heyAudio.play();
-    }
-
-    if (event.keyCode === 76) {
-        // K
-
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
-        beansAudio.play();
+        TweenMax.fromTo(heyPlayBtn, .3, {
+            scale: .5
+        }, {
+            scale: 1
+        });
     }
 });
 
-// volume
-// const gainNode = audioCtx.createGain();
-
-// const volumeControl = document.querySelector('[data-action="volume"]');
-// volumeControl.addEventListener('input', function() {
-//     gainNode.gain.value = this.value;
-// }, false);
-
-// panning
-// const pannerOptions = {pan: 0};
-// const panner = new StereoPannerNode(audioCtx, pannerOptions);
-// let panSlider = document.querySelector('[data-action="panner"]');
-
-
-// panSlider.addEventListener('input', function() {
-//     panner.pan.value = panSlider.value; 
-
-// })
-
-
-// canvas visualizer experiment 
-
-
-// analyser.fftSize = 2048;
-// var bufferLength = analyser.frequencyBinCount;
-// var dataArray = new Uint8Array(bufferLength);
+// canvas visualizer 
 
 
 analyser.fftSize = 256;

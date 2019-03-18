@@ -74,6 +74,7 @@ table {
 
 body {
 	background: #ccc;
+	font-family: sans-serif;
 }
 
 /* 2. Content ================================= */
@@ -101,7 +102,12 @@ body {
 }
 
 .content .drum-buttons {
-	border: 1px solid red;
+	padding-top: 10px;
+	font-size: 12px;
+}
+
+.content .drum-buttons p {
+	padding: 15px;
 }
 
 .content .drum-buttons .row-q-wrapper {
@@ -113,6 +119,7 @@ body {
 .content .drum-buttons .row-q-wrapper .row-q {
 	background: #bdbffd;
 	opacity: .9;
+	padding-top: 15px;
 }
 
 .content .drum-buttons .row-a-wrapper {
@@ -124,6 +131,7 @@ body {
 .content .drum-buttons .row-a-wrapper .row-a {
 	background: #fda187;
 	opacity: .9;
+	padding-top: 15px;
 }
 
 .content .drum-buttons .row-z-wrapper {
@@ -135,6 +143,7 @@ body {
 .content .drum-buttons .row-z-wrapper .row-z {
 	background: #86db53;
 	opacity: .9;
+	padding-top: 15px;
 }
 
 .content .drum-buttons .row-p-wrapper {
@@ -146,6 +155,7 @@ body {
 .content .drum-buttons .row-p-wrapper .row-p {
 	background: #86db53;
 	opacity: .9;
+	padding-top: 15px;
 }
 
 .content .drum-buttons .div-button {

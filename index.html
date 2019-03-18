@@ -27,13 +27,13 @@
 			<audio class="marchAudio audio" src="dist/sounds/marchbeat.wav"></audio>
 			<audio class="bassAudio audio" src="dist/sounds/synthbass.wav"></audio>
 			<audio class="ps1Audio audio" src="dist/sounds/ps1.wav"></audio>
-			<audio class="beansAudio audio" src="dist/sounds/beans.wav"></audio>
 			<audio class="anotherAudio audio" src="dist/sounds/anotherone.wav"></audio>
 			<audio class="heyAudio audio" src="dist/sounds/hey.wav"></audio>
 
 		
 			<div class="drum-buttons">
-				<div class="row-q-wrapper">
+				<div class="row-q-wrapper">	
+					<p>Use Keys Q - T</p>
 					<div class="kickPlayButton div-button row-q">Kick</div>
 					<div class="hihatPlayButton div-button row-q"">HiHat</div>
 					<div class="clapPlayButton div-button row-q"">Clap</div>
@@ -41,21 +41,23 @@
 					<div class="boomPlayButton div-button row-q"">Boom</div>
 				</div>
 				<div class='row-a-wrapper'>
+					<p>Use Keys A - F</p>
 					<div class="hithatPlayButton div-button row-a">Open Hat</div>
 					<div class="ridePlayButton div-button row-a">Ride</div>
 					<div class="tinkPlayButton div-button row-a">Tink</div>
 					<div class="tomPlayButton div-button row-a">Tom</div>
 				</div>
 				<div class="row-z-wrapper">
+						<p>Use Keys Z - C</p>
 						<div class="bigBandPlayButton div-button row-z">Big Band</div>
 						<div class="marchPlayButton div-button row-z">March</div>
 						<div class="bassPlayButton div-button row-z">Bass</div>
 				</div>
 				<div class="row-p-wrapper">
+						<p>Use Keys H - K</p>
 						<div class="ps1PlayButton div-button row-p">PS1</div>
 						<div class="anotherPlayButton div-button row-p">Another One</div>
 						<div class="heyPlayButton div-button row-p">Hey</div>
-						<div class="beansPlayButton div-button row-p">Special</div>
 				</div>
 			</div>
 
@@ -63,13 +65,12 @@
 				<label>Low Shelf
 					<input class="lowShelfSlider" min="-50" max="50" step="1" value="0" type="range">
 				</label>
-				<p>Use Keys Q - T to play sounds!</p>
-				<!-- <label>Pan
+				<label>Pan
 					<input class="panSlider" min="-1" max="1" step="0.01" value="0" data-action="panner" type="range">
 				</label>
-				<br><label>Volume
-					<input class="volumeSlider" min="0" max="1" step="0.01" value="0" data-action="volume" type="range">
-				</label> -->
+				<label>Volume
+					<input class="volumeSlider" min="0" max="5" step="0.01" value="2.5" data-action="volume" type="range">
+				</label>
 			</div>
 		</div>
 
